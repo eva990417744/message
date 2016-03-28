@@ -78,25 +78,3 @@ function DELETE(id) {
         }
     });
 }//删除指定ID的留言
-function clonediv_giveid() {
-    var div=$('.panel.panel-info');
-    var max=3;
-    for (var i=0;i< max;i++)
-    {
-        $("body").append(div.clone());
-    }
-    for(var i=0;i< max+1;i++)
-    {
-        $('.panel.panel-info')[i].id=i;
-    }
-}//复制DIV与给DIV赋值ID
-var mytime=new Date();
-new Vue({
-    el: '#0',
-    data: {
-        avatar:'test.jpg',
-        nickname:'sola',
-        timestamp:myDate.toLocaleDateString(),
-        text:'fuck you'
-    }
-});
