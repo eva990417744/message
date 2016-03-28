@@ -3,47 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <title>message board</title>
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="jquery/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="message%20board.js"></script>
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style type="text/css">
+        .no-cor>.btn-group>.btn {
+            border-radius: 0px;
+        }
+        .no-cor>.btn-group:first-child>.btn:first-child {
+            border-left: 0;
+        }
+        .no-cor>.btn-group:last-child>.btn:last-child {
+            border-right: 0;
+        }
+        /*Caution: Not fullly functional*/
+        .no-cor>.btn-group:not(:first-child):not(:last-child)>.btn:last-child {
+            border-right: 0;
+        }
+        .no-cor>.btn-group:not(:first-child):not(:last-child)>.btn:first-child {
+            border-left: 0;
+        }
+        .panel-info {
+            border: 0;
+            margin-bottom:4px;
+            border-radius:0;
+        }
+        .panel-info>.panel-heading {
+            border-radius:0;
+        }
+        .panel-heading {
+            border-top: 1px solid transparent;
+        }
+        .panel-info>.panel-footer {
+            border:0;
+            border-radius:0;
+        }
+        .media-left {
+            padding-right: 15px;
+        }
+        .media-body {
+            padding-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
+<!-- COMMENT START -->
 <div class="panel panel-info">
     <div class="panel-heading">
         <div class="media">
             <div class="media-left">
                 <a href="#">
-                    <img class="img-circle" src="下载.png" width="34" height="34" alt="目瞪口呆.jpg">
+                    <img class="img-circle" src={{ avatar }} width="64" height="64" alt="目瞪口呆.jpg">
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading">Media heading</h4>
-                <p>time data</p>
+                <h4 class="media-heading">{{ nickname }}</h4>
+                <p>{{ timestamp }}</p>
             </div>
         </div>
     </div>
     <div class="panel-body">
-        Panel content
+        {{ text }}
     </div>
-    <div class="panel-footer">
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+    <div class="panel-footer" style="padding: 0">
+        <div class="btn-group btn-group-justified no-cor" role="group" aria-label="...">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-danger" disabled="disabled">点赞</button>
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;888
+                </button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-success" disabled="disabled">share</button>
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-share"></span>&nbsp;&nbsp;分享
+                </button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-info">评论</button>
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;评论
+                </button>
             </div>
         </div>
     </div>
 </div>
-
-
+<!-- COMMENT END -->
+<script>
+    clonediv_giveid();
+</script>
 </body>
 </html>
