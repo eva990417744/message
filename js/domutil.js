@@ -64,7 +64,7 @@ var domUtil = {
      */
     injectAll: function (jsonArray) {
         for (var jsonData in jsonArray) {
-            domUtil.inject(jsonData);
+            domUtil.inject(jsonArray[jsonData]);
         }
     }
 
