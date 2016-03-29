@@ -55,4 +55,20 @@
 </div>
 <!-- COMMENT END -->
 </body>
+<!--TEST CASE-->
+<script>
+    $.ajax({
+        url: 'http://wcs.sola.love/comment/0',
+        dataType: 'json',
+        async: true,
+        success: function (data) {
+            console.log(data);
+            domUtil.injectAll(data.comments);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+</script>
+<!--TEST CASE END-->
 </html>
