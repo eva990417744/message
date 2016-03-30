@@ -104,13 +104,13 @@ $(document).ready(function(){
         location.reload(true);
     })
 });//reCreatebuttonclick
-$(document).ready(function(){
-       $(".panel-info.panel").unbind("scroll").bind("scroll", function(e){
-           var sum = this.scrollHeight;
-           if (sum-30 <= $(this).scrollTop() + $(this).height()) {
-               location.reload(true);
-           }
-       });
+var loading= false;
+$(window).scroll(function() {
+    if (!loading && ($(window).scrollTop() >  $(document).height() - $(window).height() - 10)) {
+        loading= true;
+        location.reload(true);// your content loading call goes here.
+        loading = false; // reset value of loading once content loaded
+    }
 });
 function toComment(id) {
     console.log(id);
