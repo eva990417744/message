@@ -38,6 +38,7 @@ function Fetch() {
         },
         success:function (data) {
             domUtil.injectAll(data.comments);
+            FetchParameters.page++;
         },
         error: function (error) {
             console.log(error);
@@ -103,3 +104,14 @@ $(document).ready(function(){
         location.reload(true);
     })
 });//reCreatebuttonclick
+$(document).ready(function(){
+       $(".panel-info.panel").unbind("scroll").bind("scroll", function(e){
+           var sum = this.scrollHeight;
+           if (sum-30 <= $(this).scrollTop() + $(this).height()) {
+               location.reload(true);
+           }
+       });
+});
+function toComment(id) {
+    console.log(id);
+}

@@ -46,7 +46,7 @@
                 </button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default">
+                <button type="button" class="btn btn-default"  onclick="toComment({{ id }});">
                     <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;评论
                 </button>
             </div>
@@ -83,6 +83,13 @@
         error: function (error) {
             console.log(error);
         }
+    });
+    var a=0;
+    $(document).ready(function(){
+        $(".panel.panel-info").scroll(function() {
+            a++;
+            alert(a);
+        });
     });
 </script>
 <!--TEST CASE END-->
