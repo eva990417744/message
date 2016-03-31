@@ -2,22 +2,23 @@
  * Created by eva99 on 2016/3/8.
  */
 'use strict';
-var re=new RegExp('token=([0-9a-z]{8}(-[0-9a-z]{4}){3}-[0-9a-z]{12})');
-var token =re.exec(window.location.href);
-var c=new Comment();
-function Create(inputtext,id) {
-    var CreateParameters={
-        text:inputtext,
-        parent:id
+var re = new RegExp('token=([0-9a-z]{8}(-[0-9a-z]{4}){3}-[0-9a-z]{12})');
+var token = re.exec(window.location.href);
+var re2 = new RegExp('\d\d');
+var reid = new re2.exec(window.location.href);
+function Create(inputtext, id) {
+    var CreateParameters = {
+        text: inputtext,
+        parent: id
     };
-    var createpost=$.ajax({URL:'/comment/0',
-        type:'POST',
-        data:CreateParameters,
-        beforeSend: function (request)
-        {
-            request.setRequestHeader('Accept:application/json','x-auth-token:'+token);
+    var createpost = $.ajax({
+        URL: '/comment/0',
+        type: 'POST',
+        data: CreateParameters,
+        beforeSend: function (request) {
+            request.setRequestHeader('Accept:application/json', 'x-auth-token:' + token[1]);
         },
-        success:function (data) {
+        success: function (data) {
             domUtil.inject(data);
         },
         error: function (error) {
@@ -26,17 +27,17 @@ function Create(inputtext,id) {
     });
 }//创建留言、回复。
 function Fetch() {
-    var FetchParameters={
-        size:20,
-        page:0
+    var FetchParameters = {
+        size: 20,
+        page: 0
     };
-    var Fetchget=$.ajax({url:'/comment/0',
-        data:FetchParameters,
-        beforeSend: function (request)
-        {
-            request.setRequestHeader('Accept:application/json','x-auth-token:'+token);
-        },
-        success:function (data) {
+    var Fetchget = $.ajax({
+        url: '/comment/0',
+        data: FetchParameters,
+        /*beforeSend: function (request) {
+         request.setRequestHeader('Accept:application/json', 'x-auth-token:' + token);
+         },*/
+        success: function (data) {
             domUtil.injectAll(data.comments);
             FetchParameters.page++;
         },
@@ -46,13 +47,13 @@ function Fetch() {
     })
 }//获取留言
 function GET(id) {
-    this.id=id;
-    var GETget=$.ajax({url:'/comment/{'+id+'}',
-        beforeSend: function (request)
-        {
-            request.setRequestHeader('Accept:application/json','x-auth-token:'+token);
+    this.id = id;
+    var GETget = $.ajax({
+        url: '/comment/{' + id + '}',
+        beforeSend: function (request) {
+            request.setRequestHeader('Accept:application/json', 'x-auth-token:' + token[1]);
         },
-        success:function (data) {
+        success: function (data) {
             domUtil.inject(data);
         },
         error: function (error) {
@@ -60,16 +61,16 @@ function GET(id) {
         }
     });
 }//获取指定ID的留言信息
-function UPDATE(text,id) {
-    this.id=id;
-    var UPDATEPATCH =$.ajax({url:'/comment/{'+id+'}',
+function UPDATE(text, id) {
+    this.id = id;
+    var UPDATEPATCH = $.ajax({
+        url: '/comment/{' + id + '}',
         type: 'PATCH',
-        data:text,
-        beforeSend: function (request)
-        {
-            request.setRequestHeader('Accept:application/json','x-auth-token:'+token);
+        data: text,
+        beforeSend: function (request) {
+            request.setRequestHeader('Accept:application/json', 'x-auth-token:' + token[1]);
         },
-        success:function (data) {
+        success: function (data) {
             domUtil.inject(data);
         },
         error: function (error) {
@@ -78,40 +79,41 @@ function UPDATE(text,id) {
     });
 }//编辑指定ID的留言内容
 function DELETE(id) {
-    this.id=id;
-    var DELETEget=$.ajax({url:'/comment/{'+id+'}',
-        type:'DELETE',
-        beforeSend: function (request)
-        {
-            request.setRequestHeader('Accept:application/json','x-auth-token:'+token);
+    this.id = id;
+    var DELETEget = $.ajax({
+        url: '/comment/{' + id + '}',
+        type: 'DELETE',
+        beforeSend: function (request) {
+            request.setRequestHeader('Accept:application/json', 'x-auth-token:' + token[1]);
         },
-        error:function () {
-
+        error: function (data) {
+            location.href = 'error.html?' + data;
         }
     });
 }//删除指定ID的留言
-$(document).ready(function(){
+$(document).ready(function () {
     $('#Createbutton').click(function () {
-        var text=$('#Createtext').text();
-        Create(text,0);
+        var text = $('#Createtext').text();
+        Create(text, 0);
         location.reload(true);
     });
 });//Createbuttonclick
-$(document).ready(function(){
+$(document).ready(function () {
     $('#reCreatebutton').click(function () {
-        var text=$('#reCreatext').text();
-        Create(text,id);
+        var text = $('#reCreatext').text();
+        Create(text, id);
         location.reload(true);
     })
 });//reCreatebuttonclick
-var loading= false;
-$(window).scroll(function() {
-    if (!loading && ($(window).scrollTop() >  $(document).height() - $(window).height() - 10)) {
-        loading= true;
+var loading = false;
+$(window).scroll(function () {
+    if (!loading && ($(window).scrollTop() > $(document).height() - $(window).height() - 10)) {
+        loading = true;
         location.reload(true);// your content loading call goes here.
         loading = false; // reset value of loading once content loaded
     }
 });
 function toComment(id) {
-    console.log(id);
+    location.href = 're.html?id=' + id;
 }
+Fetch();
